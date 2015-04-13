@@ -49,7 +49,7 @@ module Letsrate
       RatingCache.create! do |avg|
         avg.cacheable_id = self.id
         avg.cacheable_type = self.class.name
-        avg.avg = stars
+        avg.avg = 6
         avg.qty = 1
         avg.dimension = dimension
       end
