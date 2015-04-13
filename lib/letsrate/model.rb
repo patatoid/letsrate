@@ -23,7 +23,7 @@ module Letsrate
   def update_rate_average_dirichlet(stars, dimension=nil)
     ## assumes 5 possible vote categories
     dp = {1 => 1, 2 => 1, 3 => 1, 4 => 1, 5 => 1}
-    stars_group = Hash[rates(dimension).group(:stars).count.map{|k,v| [k.to_i,v] }]
+    stars_group = Hash[rates(dimension).where(published: true).group(:stars).count.map{|k,v| [k.to_i,v] }]
     posterior = dp.merge(stars_group){|key, a, b| a + b}
     sum = posterior.map{ |i, v| v }.inject { |a, b| a + b }
     davg = posterior.map{ |i, v| i * v }.inject { |a, b| a + b }.to_f / sum
@@ -92,7 +92,7 @@ module Letsrate
 
 
       dimensions.each do |dimension|
-        has_many "#{dimension}_rates".to_sym, -> {where(dimension: dimension.to_s, published: true)},
+        has_many "#{dimension}_rates".to_sym, -> {where(dimension: dimension.to_s)},
                                               :dependent => :destroy,
                                               :class_name => "Rate",
                                               :as => :rateable
