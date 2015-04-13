@@ -11,4 +11,14 @@ class RaterController < ApplicationController
     end
   end
 
+  def toggle_published
+    @rate = Rate.find(params[:id])
+    if @rate.update(published: !@rate.published)
+      flash[:notice] = 'Modification effectuée'
+    else
+      flash[:warning] = 'Une erreur s\'est produite'
+    end
+    redirect_to :back
+  end
+
 end

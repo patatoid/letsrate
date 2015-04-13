@@ -26,6 +26,7 @@ class LetsrateGenerator < ActiveRecord::Generators::Base
 
   def add_rate_path_to_route
     route "post '/rate' => 'rater#create', :as => 'rate'"
+		get '/rates/:id/toggle_published' => 'rater#toggle_published', as: 'toggle_published_rate'
   end
 
   desc "cacheable rating average migration is creating ..."
