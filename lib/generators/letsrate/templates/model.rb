@@ -4,4 +4,11 @@ class Rate < ActiveRecord::Base
 
   #attr_accessible :rate, :dimension
 
+	after_save do
+		if dirichlet_method
+			update_rate_average_dirichlet(stars, dimension)
+		else
+			update_rate_average(stars, dimension)
+		end
+	end
 end

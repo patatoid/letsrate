@@ -92,7 +92,7 @@ module Letsrate
 
 
       dimensions.each do |dimension|
-        has_many "#{dimension}_rates".to_sym, -> {where dimension: dimension.to_s},
+        has_many "#{dimension}_rates".to_sym, -> {where(dimension: dimension.to_s, published: true)},
                                               :dependent => :destroy,
                                               :class_name => "Rate",
                                               :as => :rateable
