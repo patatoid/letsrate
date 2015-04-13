@@ -56,7 +56,7 @@ module Letsrate
     else
       a = average(dimension)
       a.qty = rates(dimension).count
-      a.avg = rates(dimension).where(published: true).average(:stars)
+      a.avg = rates(dimension).where(published: true).average(:stars) || 6
       a.save!(validate: false)
     end
   end
