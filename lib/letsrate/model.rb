@@ -48,7 +48,7 @@ module Letsrate
     if average(dimension).nil?
       RatingCache.create! do |avg|
         avg.cacheable_id = self.id
-        avg.cacheable_type = self.class.name
+        avg.cacheable_type = 'Housing'
         avg.avg = 6
         avg.qty = 1
         avg.dimension = dimension
